@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Interface</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #4b4747; /* Dark background */
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            height: 80px;
+            width: 100%;
+            color: #FFFFFF;
+            padding: 0 20px;
+        }
+
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .username {
+            background-color: #fff;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+            background-color: #4b4747;
+        }
+
+        .message {
+            display: flex;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            max-width: 60%;
+            position: relative;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .bot {
+            background-color: #333;
+            color: white;
+            align-self: flex-start;
+        }
+
+        .user {
+            background-color: #1a73e8;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message:before {
+            content: '';
+            position: absolute;
+            border-style: solid;
+        }
+
+        .bot:before {
+            border-width: 0 15px 15px 0;
+            border-color: transparent #333 transparent transparent;
+            top: 0;
+            left: -15px;
+        }
+
+        .user:before {
+            border-width: 15px 0 0 15px;
+            border-color: transparent transparent transparent #1a73e8;
+            top: 0;
+            right: -15px;
+        }
+
+        .footer {
+            padding: 20px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-message {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="title">StandardMuth</div>
+        <div class="username">User_Name</div>
+    </header>
+
+    <div class="chat-container">
+        <!-- Bot Message -->
+        <div class="message bot">
+            Hello, how can I assist you today?
+        </div>
+        
+        <!-- User Message -->
+        <div class="message user">
+            Can you help me with some coding tips?
+        </div>
+
+        <!-- Bot Message -->
+        <div class="message bot">
+            Sure! What kind of coding help are you looking for?
+        </div>
+
+        <!-- User Message -->
+        <div class="message user">
+            I need help with HTML and CSS.
+        </div>
+    </div>
+
+    <footer class="footer">
+        <input type="text" class="input-message" placeholder="Message StandardMuth" />
+    </footer>
+
+</body>
+</html>
