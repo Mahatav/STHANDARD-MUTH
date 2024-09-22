@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STHAN DARD MUTH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">STHAN DARD MUTH</h1>
+        <button class="theme-btn">Dark Mode</button>
+    </div>
+    <div class="container">
+        <div class="chat-container">
+            <div class="messages" id="messages">
+                <div class="message user">
+                    <div class="avatar user-avatar"></div>
+                    <div class="message-content">
+                        <span class="message-text">Hey, how's it going?</span>
+                        <span class="timestamp"></span>
+                    </div>
+                </div>
+                <div class="message bot">
+                    <div class="avatar bot-avatar"></div>
+                    <div class="message-content">
+                        <span class="message-text">I'm doing well, thanks! How about you?</span>
+                        <span class="timestamp"></span>
+                    </div>
+                </div>
+                <!-- More messages can be added here -->
+            </div>
+            <form class="chat-footer" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type a message...">
+                <button type="submit" class="send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
