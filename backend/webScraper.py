@@ -40,7 +40,6 @@ class WebScraper:
 
         # Scrape content from each result
         for result in search_results:
-            print(f"Scraping {result['title']} - {result['href']}")
             content = self.scrape_content(result['href'])
             if content:
                 info.append({

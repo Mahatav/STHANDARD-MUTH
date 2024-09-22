@@ -1,31 +1,28 @@
-import subprocess
+from llama_cpp import Llama
+import webScraper as ws
 
-# Define the path to the Alpaca binary
-ALPACA_BIN = "backend/alpaca.cpp/chat"  # Change this to the correct path of your 'chat' binary
-MODEL_PATH = "backend/alpaca.cpp/ggml-alpaca-7b-q4.bin"  # Path to your .bin model file
+class chatBot:
+    def __init__(self):
+        self.model = Llama(model_path="backend/llama.cpp/models/llama-2-7b-chat.Q4_K_S.gguf", n_ctx=2048, n_batch=128)
 
-# Function to run the Alpaca chatbot with an input prompt
-def get_alpaca_response(prompt):
-    process = subprocess.Popen(
-        [ALPACA_BIN, "-m", MODEL_PATH, "-p", prompt],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    def generate_response(self, prompt, max_tokens=300, stop=["Human:", "\n"], echo=False):
+        output = self.model(prompt, max_tokens=max_tokens, stop=stop, echo=echo)
+        return output['choices'][0]['text']
     
-    output, error = process.communicate()
+    def get_context(self, lastName):
+        webScraper = ws.WebScraper(lastName)
+        context = webScraper.name_info
+        prompt = f"Please summarize the following information about the last name {lastName} in concise sentences:\n"
+        for info in context:
+            prompt += f"{info['title']}: {info['content'][:500]}\n"
+                 
+        # Ensure the prompt fits within the context window
+        max_prompt_length = 3000  # Adjusted to a lower value
+        if len(prompt) > max_prompt_length:
+            prompt = prompt[:max_prompt_length] + "..."
+        
+        response = self.generate_response(prompt)
+        print("AI: " + response.strip())
 
-    if error:
-        print(f"Error: {error.decode('utf-8')}")
-        return None
-
-    # Print the raw output for debugging
-    raw_output = output.decode('utf-8')
-    print(f"Raw Output: {repr(raw_output)}")  # Use repr to show any hidden characters
-    return raw_output
-
-# Example usage as a method
-if __name__ == "__main__":
-    user_prompt = input("Enter your prompt: ")
-    response = get_alpaca_response(user_prompt)
-    if response:
-        print("Alpaca's response:")
-        print(response)
+c = chatBot()
+c.get_context("Arora")
