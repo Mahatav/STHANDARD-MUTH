@@ -1,0 +1,108 @@
+/* General reset for padding, margin, and borders */
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #6b5c56; /* Keeping the background color consistent */
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+/* Container styling */
+.container {
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: #8d7f7a; /* Softer background color for the form */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden; /* Ensure no overflow */
+}
+
+/* Header Styling */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Input field styling */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #514844;
+    border-radius: 8px;
+    color: #fff;
+    border: 1px solid transparent;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="email"]:focus {
+    border-color: #dfcfc5; /* Light border on focus */
+}
+
+/* Button styling */
+form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #dfcfc5;
+    border-radius: 8px;
+    color: #514844;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+form button:hover {
+    background-color: #c1b0a6; /* Darken the button on hover */
+}
+
+/* Sign in with Google button */
+form .google-btn {
+    background-color: #f0ebe6;
+    color: #514844;
+    border: 1px solid #dfcfc5;
+}
+
+form .google-btn:hover {
+    background-color: #dfcfc5;
+    color: #fff;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #dfcfc5;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dark-mode-toggle:hover {
+    background-color: #c1b0a6;
+}
+
+/* Ensure no extra margin or padding at the bottom */
+form {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+}

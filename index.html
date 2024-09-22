@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sthandard Muth - Next-gen chat interface">
+    <meta name="keywords" content="chat, futuristic, interactive, sleek design">
+    <meta name="author" content="Your Name">
+    <title>Sthandard Muth</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <h1 class="title">Sthandard Muth</h1>
+        <button id="theme-toggle" class="theme-btn">Dark Mode</button>
+    </header>
+
+    <main class="container">
+        <section id="auth-section" class="auth-container">
+            <form id="auth-form">
+                <input type="email" id="email" class="input-field" placeholder="Email" required>
+                <input type="password" id="password" class="input-field" placeholder="Password" required>
+                <input type="password" id="confirm-password" class="input-field hidden" placeholder="Confirm Password" required>
+                <button type="submit" class="btn" id="auth-btn">Sign Up</button>
+            </form>
+            <button id="googleSignInButton" class="google-btn">Sign in with Google</button>
+            <p id="error-msg" class="error"></p>
+        </section>
+
+        <section id="chat-section" class="chat-container hidden">
+            <div id="messages" class="messages"></div>
+            <form id="chat-form" class="chat-footer">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type a message...">
+                <button type="submit" class="send-btn">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
