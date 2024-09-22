@@ -50,9 +50,3 @@ class WebScraper:
                 })
 
         return info, search_results
-
-# Example usage
-if __name__ == "__main__":
-    scraper = WebScraper("Smith")
-    last_name_info = scraper.name_info
-    print(last_name_info)
