@@ -12,8 +12,16 @@ const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const messagesContainer = document.getElementById('messages');
 
+// Add instruction element
+const instructionElement = document.createElement('p');
+instructionElement.id = 'instruction';
+instructionElement.textContent = 'Please enter a last name to begin the conversation.';
+chatForm.insertBefore(instructionElement, chatInput);
+
 // Handle sending messages
-chatForm.addEventListener('submit', (e) => {
+let isFirstMessage = true;
+
+chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const userInput = chatInput.value.trim();
 
@@ -22,13 +30,63 @@ chatForm.addEventListener('submit', (e) => {
     // Add user's message to the chat
     addMessage('user', userInput);
 
-    // Simulate bot response
-    setTimeout(() => {
-        const botResponse = generateBotResponse(userInput);
-        addMessage('bot', botResponse);
-    }, 1000);
+    // Show loading indicator
+    const loadingMessage = addMessage('bot', 'Thinking...');
 
+    // Disable input while waiting for response
+    chatInput.disabled = true;
+
+    try {
+        let response;
+        if (isFirstMessage) {
+            // For the first message, call get_context
+            response = await fetch('/api/get_context', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ lastName: userInput }),
+            });
+            isFirstMessage = false;
+            instructionElement.textContent = 'Now you can chat freely!';
+        } else {
+            // For subsequent messages, use the regular chat API
+            response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
+        }
+
+        if (!response.ok) {
+            throw new Error('Failed to get AI response');
+        }
+
+        const data = await response.json();
+        
+        // Remove loading indicator with a slight delay
+        setTimeout(() => {
+            loadingMessage.remove();
+        }, 500);
+
+        // Add AI's response to the chat
+        addMessage('bot', data.response);
+    } catch (error) {
+        console.error('Error:', error);
+        // Remove loading indicator with a slight delay
+        setTimeout(() => {
+            loadingMessage.remove();
+        }, 500);
+        // Add error message to the chat
+        addMessage('bot', 'Sorry, I encountered an error. Please try again.');
+    }
+
+    // Re-enable input
+    chatInput.disabled = false;
     chatInput.value = '';
+    chatInput.focus();
 });
 
 // Function to add message to the chat
@@ -69,17 +127,29 @@ function addMessage(sender, text) {
 
     messagesContainer.appendChild(messageElement);
     messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll to bottom
+
+    return messageElement;
 }
 
-// Function to generate a bot response (placeholder logic)
-function generateBotResponse(userInput) {
-    const responses = [
-        "I'm here to help!",
-        "That sounds interesting!",
-        "Can you tell me more?",
-        "I'm not sure about that, but I'll try my best!",
-    ];
+// Function to get last name context
+async function getLastNameContext(lastName) {
+    try {
+        const response = await fetch('/api/get_context', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ lastName: lastName }),
+        });
 
-    return responses[Math.floor(Math.random() * responses.length)];
+        if (!response.ok) {
+            throw new Error('Failed to get last name context');
+        }
+
+        const data = await response.json();
+        return data.response;
+    } catch (error) {
+        console.error('Error:', error);
+        return 'Sorry, I encountered an error while fetching the last name context.';
+    }
 }
- 
